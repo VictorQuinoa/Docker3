@@ -44,4 +44,76 @@ Y ya estaria instalado lamp.
 
 ## 2. Utiliza esta guía para instalar wordpress en el contenedor.
 
+Para comenzar la instalacion de wordpress, instalamos las dependencias con el siguiente comando.
+
+```
+sudo apt install apache2 \
+                 ghostscript \
+                 libapache2-mod-php \
+                 mysql-server \
+                 php \
+                 php-bcmath \
+                 php-curl \
+                 php-imagick \
+                 php-intl \
+                 php-json \
+                 php-mbstring \
+                 php-mysql \
+                 php-xml \
+                 php-zip
+
+```
+A continuacion para obtener wordpress en si usaremos:
+
+```
+sudo mkdir -p /srv/www
+
+sudo chown www-data: /srv/www
+
+(necesitamos instalar curl con "apt install curl")
+
+curl https://wordpress.org/latest.tar.gz | sudo -u www-data tar zx -C /srv/www
+```
+Una vez instalado wordpress necesitamos configurarlo, para ello creamos un documento que contenga la configuracion proporcionada en la guia en un documento nano.
+
+```
+nano /etc/apache2/sites-available/wordpress.conf
+```
+
+////////////
+
+A continuacion habilitaremos la pagina.
+
+```
+a2ensite wordpress
+
+a2enmod rewrite
+
+a2dissite 000-default
+
+Y por ultimo
+
+service apache2 reload
+
+```
+
+El proximo paso sera crear una base de datos accediendo a mysql.
+
+//////////////
+
+```
+CREATE DATABASE wordpress;
+
+CREATE USER wordpress@localhost IDENTIFIED BY '<your-password>';
+
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wordpress@localhost;
+
+FLUSH PRIVILEGES;
+
+quit
+```
+
+
+
+
 ## 3. Comprueba que puedes acceder a wordpress
