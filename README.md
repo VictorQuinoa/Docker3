@@ -128,3 +128,28 @@ quit
 Una vez realizados los pasos anteriores, podemos comprobar que aparece la siguiente página.
 
 ![](https://github.com/VictorQuinoa/Docker3/blob/main/wordpress.png?raw=true)
+
+
+Una vez hecho esto debemos configurar la base de datos, para esto copiamos el archivo de configuración y establecemos una serie de datos.
+
+```
+cp /srv/www/wordpress/wp-config-sample.php /srv/www/wordpress/wp-config.php
+
+# Reemplaza el nombre de la base de datos
+sed -i 's/database_name_here/wordpress/' /srv/www/wordpress/wp-config.php
+
+# Reemplaza el nombre del usuario
+sudo -u www-data sed -i 's/username_here/wordpress/' /srv/www/wordpress/wp-config.php
+
+# Reemplaza la contraseña
+sed -i 's/password_here/<your-password>/' /srv/www/wordpress/wp-config.php
+```
+
+Una vez hecho, abrimos el archivo con nano y eliminamos las siguientes lineas:
+
+![](https://github.com/VictorQuinoa/Docker3/blob/main/Eliminar.png?raw=true)
+
+Tras hacer esto e introducir nuestros datos en la página, ya estaria todo listo.
+
+![](https://github.com/VictorQuinoa/Docker3/blob/main/WordPress.png?raw=true)
+
